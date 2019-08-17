@@ -54,7 +54,6 @@ function _video() {
 ################################################################################
 
 function audio() {
-  echo $(cd $(dirname $0); pwd)
   local SCRIPT_PATH=~/repo/src/github.com/ledyba/media-recipes
   local cmd=$1
   if [[ $# > 0 ]]; then

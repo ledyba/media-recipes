@@ -6,12 +6,12 @@
 #
 
 LANG=ja_JP.UTF-8
-bash -ex <<EOF
-ffmpeg -i "$1" \
-  -lavfi showspectrumpic=s=1024x1024 \
-  "$1.png"
+fname=$1
 
-ffmpeg -i "$1" -filter_complex \
+ffmpeg -y -i "${fname}" \
+  -lavfi showspectrumpic=s=1024x1024 \
+  "${fname}.png" &&
+ffmpeg -y -i "${fname}" -filter_complex \
 "[0:a]showcqt=s=640x518,pad=1280:720[vs]; \
  [0:a]showspectrum=mode=separate:color=intensity:scale=cbrt:slide=scroll:s=640x518[ss]; \
  [0:a]showwaves=s=1280x202:mode=line[sw]; \
@@ -19,6 +19,6 @@ ffmpeg -i "$1" -filter_complex \
  [bg][sw]overlay=0:H-h[out]" \
 -map "[out]" -map 0:a \
 -c:v libx264 -preset veryslow -crf 0 -threads 0 \
-"$1.mp4"
-EOF
+"${fname}.mp4"
+
 echo "All done, have fun!"
