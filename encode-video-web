@@ -1,0 +1,27 @@
+#! /bin/bash
+
+#
+# twitter用に動画をエンコードする
+# ./encode-video-twitter in1 in2 ... out
+#
+
+source $(dirname $0)/_util.sh
+
+LANG=ja_JP.UTF-8
+args=("$@")
+
+dst=${args[${#args[@]}-1]}
+unset 'args[${#args[@]}-1]'
+
+inputs=$(join_by '|' ${args[@]})
+
+bash -ex <<END
+ffmpeg -hide_banner -y -i "concat:${inputs}" \
+  -vf 'bwdif=0:-1:0' \
+  -c:v libx264 -profile:v high -preset veryslow -crf 20 -threads 0 \
+  -c:a aac -b:a 128k \
+  -strict -2 \
+  ${dst} 2> /dev/null
+END
+rm -f ffmpeg2pass-0.log ffmpeg2pass-0.log.mbtree
+echo 'All done, have fun!'
