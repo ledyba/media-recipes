@@ -1,7 +1,7 @@
 #! #!/usr/bin/env zsh
 
 function img() {
-  local SCRIPT_PATH=~/repo/src/github.com/ledyba/media-recipes
+  local SCRIPT_PATH=~/src/github.com/ledyba/media-recipes
   local dir="$2"
   if [ -n "$dir" ]; then
     dir='.'
@@ -27,7 +27,7 @@ function _img() {
 ################################################################################
 
 function video() {
-  local SCRIPT_PATH=~/repo/src/github.com/ledyba/media-recipes
+  local SCRIPT_PATH=~/src/github.com/ledyba/media-recipes
   local cmd=$1
   if [[ $# > 0 ]]; then
     shift
@@ -54,7 +54,7 @@ function _video() {
 ################################################################################
 
 function audio() {
-  local SCRIPT_PATH=~/repo/src/github.com/ledyba/media-recipes
+  local SCRIPT_PATH=~/src/github.com/ledyba/media-recipes
   local cmd=$1
   if [[ $# > 0 ]]; then
     shift
