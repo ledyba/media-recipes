@@ -5,7 +5,7 @@
 # ./hash-images <dir>
 #
 
-for fname in *.jpg *.JPG *.jpeg *.tiff *.png; do
+for fname in *.jpg *.JPG *.jpeg *.tiff *.png *.gif; do
   [ -e "${fname}" ] || continue;
   hash=$(md5sum ${fname} | awk '{ print $1 }')
   mv "${fname}" "${hash}.${fname##*.}"
