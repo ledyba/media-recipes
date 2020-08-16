@@ -1,0 +1,26 @@
+#! /bin/bash
+
+#
+# フォルダ中の画像をすべてリサイズする
+# ./img-minify <dir>
+#
+
+set -eu
+
+DIR="."
+if [[ $# > 0 ]]; then
+  DIR="$1"
+  shift
+fi
+QUALITY=85%
+SIZE=1600x1600
+
+for file in ${DIR}/*; do
+  if echo ${file} | grep '.minify.jpg$'; then
+    continue
+  fi
+  if (file -b "${file}" | grep 'image data' > /dev/null 2>&1); then
+    echo "[Processing] ${file} -> ${file%.*}.minify.jpg"
+    magick convert "${file}" -quality ${QUALITY} -resize ${SIZE} "${file%.*}.minify.jpg"
+  fi
+done

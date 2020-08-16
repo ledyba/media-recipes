@@ -2,12 +2,20 @@
 
 #
 # 音をビジュアライズする
-# ./visualize-audio in-audio
+# ./audio-visualize in-audio
 #
 
-LANG=ja_JP.UTF-8
-fname=$1
+set -eu
 
+if (( $# < 1 )); then
+  echo "usage audio visualize <in-audio>"
+  exit -1
+fi
+
+fname=$1
+shift
+
+export LANG=ja_JP.UTF-8
 ffmpeg -y -i "${fname}" \
   -lavfi showspectrumpic=s=1024x1024 \
   "${fname}.png" &&

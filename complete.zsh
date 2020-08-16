@@ -1,15 +1,39 @@
 #! #!/usr/bin/env zsh
 
+function pdf() {
+  local SCRIPT_PATH=~/src/github.com/ledyba/media-recipes
+  local cmd="$1"
+  if [[ $# > 0 ]]; then
+    shift
+  fi
+  case "$cmd" in
+    "from-images") bash ${SCRIPT_PATH}/pdf-from-images "$@" ;;
+    *) echo "???" ;;
+  esac
+}
+compdef _pdf pdf
+function _pdf() {
+  local -a cmds
+  if (( CURRENT == 2 ));then
+    cmds=('from-images')
+    _describe -t commands "subcommand" cmds
+  else
+    _files
+  fi
+  return 1;
+}
+################################################################################
+
 function img() {
   local SCRIPT_PATH=~/src/github.com/ledyba/media-recipes
-  local dir="$2"
-  if [ -n "$dir" ]; then
-    dir='.'
+  local cmd="$1"
+  if [[ $# > 0 ]]; then
+    shift
   fi
-  case "$1" in
-    "hash") bash ${SCRIPT_PATH}/hash-images "${dir}" ;;
-    "hash-scanned") bash ${SCRIPT_PATH}/hash-scanned-images "${dir}" ;;
-    "resize") bash ${SCRIPT_PATH}/resize-images "${dir}" ;;
+  case "$cmd" in
+    "hash") bash ${SCRIPT_PATH}/img-hash "$@" ;;
+    "rename-scan") bash ${SCRIPT_PATH}/img-rename-scan "$@" ;;
+    "minify") bash ${SCRIPT_PATH}/img-minify "$@" ;;
     *) echo "???" ;;
   esac
 }
@@ -17,13 +41,14 @@ compdef _img img
 function _img() {
   local -a cmds
   if (( CURRENT == 2 ));then
-    cmds=('hash' 'hash-scanned' 'resize')
+    cmds=('hash' 'rename-scan' 'minify')
     _describe -t commands "subcommand" cmds
   else
     _files
   fi
   return 1;
 }
+
 ################################################################################
 
 function video() {
@@ -33,9 +58,9 @@ function video() {
     shift
   fi
   case "${cmd}" in
-    "timelapse") bash ${SCRIPT_PATH}/make-timelapse-video "$1" "$2" ;;
-    "cat") bash ${SCRIPT_PATH}/cat-video "$@" ;;
-    "encode-web") bash ${SCRIPT_PATH}/encode-video-web "$@";;
+    "cat") bash ${SCRIPT_PATH}/video-cat "$@" ;;
+    "make-timelapse") bash ${SCRIPT_PATH}/video-make-timelapse "$@";;
+    "encode-web") bash ${SCRIPT_PATH}/video-encode-web "$@";;
     *) echo "???" ;;
   esac
 }
@@ -43,7 +68,7 @@ compdef _video video
 function _video() {
   local -a cmds
   if (( CURRENT == 2 ));then
-    cmds=('timelapse' 'cat' 'encode-web')
+    cmds=('cat' 'make-timelapse' 'encode-web')
     _describe -t commands "subcommand" cmds
   else
     _files
@@ -60,7 +85,7 @@ function audio() {
     shift
   fi
   case "${cmd}" in
-    "visualize") bash ${SCRIPT_PATH}/visualize-audio "$1" ;;
+    "visualize") bash ${SCRIPT_PATH}/audio-visualize "$@" ;;
     *) echo "???" ;;
   esac
 }

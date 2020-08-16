@@ -2,8 +2,16 @@
 
 #
 # タイムラプスビデオを作成
-# ./make-timelapse-video in out
+# ./video-make-timelapse in out
 #
+
+set -eu
+
+if (( $# < 2 )); then
+  echo "usage video cat <in> <out> ... <out>"
+  exit -1
+fi
+
 source $(dirname $0)/_util.sh
 
 LANG=ja_JP.UTF-8

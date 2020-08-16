@@ -2,8 +2,17 @@
 
 #
 # フォルダ中のスキャンした画像に適切なハッシュ値をつける
-# ./rename-scanned-images <dir>
+# ./img-rename-scan <dir>
 #
+
+set -eu
+
+dir="."
+if [[ $# > 0 ]]; then
+  dir="$1"
+  shift
+fi
+cd $dir
 
 for fname in *.tiff; do
   [ -e "${fname}" ] || continue;

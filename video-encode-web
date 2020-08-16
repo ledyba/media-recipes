@@ -2,8 +2,15 @@
 
 #
 # twitter用に動画をエンコードする
-# ./encode-video-twitter in1 in2 ... out
+# ./video-encode-web in1 in2 ... out
 #
+
+set -eu
+
+if (( $# < 2 )); then
+  echo "usage video cat <in1> <in2> ... <out>"
+  exit -1
+fi
 
 source $(dirname $0)/_util.sh
 

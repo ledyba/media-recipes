@@ -2,8 +2,15 @@
 
 #
 # 複数のビデオを連結
-# ./make-timelapse-video in1 in2 ... out
+# ./video-cat in1 in2 ... out
 #
+
+set -eu
+
+if (( $# < 2 )); then
+  echo "usage video cat <in1> <in2> ... <out>"
+  exit -1
+fi
 
 source $(dirname $0)/_util.sh
 
