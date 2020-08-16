@@ -5,7 +5,7 @@
 # ./pdf-from-images in-dir out.pdf
 #
 
-set -eux
+set -eu
 
 if (( $# < 1 )); then
   echo "usage pdf from-images <dirname> <out.pdf>"
