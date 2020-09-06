@@ -1,7 +1,7 @@
-#! #!/usr/bin/env zsh
+#!/usr/bin/env zsh
 
 function pdf() {
-  local SCRIPT_PATH=~/src/github.com/ledyba/media-recipes
+  local SCRIPT_PATH="${HOME}/umi/conf/helper/media-recipes"
   local cmd="$1"
   if [[ $# > 0 ]]; then
     shift
@@ -25,7 +25,7 @@ function _pdf() {
 ################################################################################
 
 function img() {
-  local SCRIPT_PATH=~/src/github.com/ledyba/media-recipes
+  local SCRIPT_PATH="${HOME}/umi/conf/helper/media-recipes"
   local cmd="$1"
   if [[ $# > 0 ]]; then
     shift
@@ -52,7 +52,7 @@ function _img() {
 ################################################################################
 
 function video() {
-  local SCRIPT_PATH=~/src/github.com/ledyba/media-recipes
+  local SCRIPT_PATH="${HOME}/umi/conf/helper/media-recipes"
   local cmd=$1
   if [[ $# > 0 ]]; then
     shift
@@ -79,7 +79,7 @@ function _video() {
 ################################################################################
 
 function audio() {
-  local SCRIPT_PATH=~/src/github.com/ledyba/media-recipes
+  local SCRIPT_PATH="${HOME}/umi/conf/helper/media-recipes"
   local cmd=$1
   if [[ $# > 0 ]]; then
     shift
