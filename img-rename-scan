@@ -17,12 +17,13 @@ cd $dir
 for fname in *.tiff; do
   [ -e "${fname}" ] || continue;
   hash=$(md5sum ${fname} | awk '{ print $1 }')
+  [ -e "${hash}.tiff" ] && continue;
   mv "${fname}" "${hash}.tiff"
   # jpegに現像したら、セットでそれらも（tiffのハッシュ値にあわせて）変更する
   if [ -e "${fname//.tiff}".jpeg ]; then
-    mv "${fname//.tiff}".jpeg ${hash}.jpeg
+    mv "${fname//.tiff}".jpeg "${hash}.jpeg"
   fi
   if [ -e "${fname//.tiff}".jpg ]; then
-    mv "${fname//.tiff}".jpg ${hash}.jpg
+    mv "${fname//.tiff}.jpg" "${hash}.jpg"
   fi
 done
