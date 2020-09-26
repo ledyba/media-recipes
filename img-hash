@@ -16,7 +16,7 @@ cd $dir
 
 for fname in *.jpg *.JPG *.jpeg *.tiff *.png *.gif; do
   [ -e "${fname}" ] || continue;
-  hash=$(md5sum ${fname} | awk '{ print $1 }')
+  hash=$(md5sum "${fname}" | awk '{ print $1 }')
   [ -e "${hash}.${fname##*.}" ] && continue;
   mv "${fname}" "${hash}.${fname##*.}"
 done
