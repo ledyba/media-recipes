@@ -16,14 +16,28 @@ cd $dir
 
 for fname in *.tiff; do
   [ -e "${fname}" ] || continue;
-  hash=$(md5sum "${fname}" | awk '{ print $1 }')
-  [ -e "${hash}.tiff" ] && continue;
-  mv "${fname}" "${hash}.tiff"
-  # jpegに現像したら、セットでそれらも（tiffのハッシュ値にあわせて）変更する
-  if [ -e "${fname//.tiff}.jpeg" ]; then
-    mv "${fname//.tiff}".jpeg "${hash}.jpeg"
+  if [[ -e "${hash}.tiff" ]]; then
+    base="${fname//.tiff}"
+    ext="tiff"
+  elif [[ -e "${hash}.tif" ]]; then
+    base="${fname//.tif}"
+    ext="tif"
+  else
+    continue
   fi
-  if [ -e "${fname//.tiff}.jpg" ]; then
-    mv "${fname//.tiff}.jpg" "${hash}.jpg"
+  hash=$(md5sum "${fname}" | awk '{ print $1 }')
+  mv "${fname}" "${hash}.${ext}"
+  # 現像したら、セットでそれらも（tiffのハッシュ値にあわせて）変更する
+  if [ -e "${base}.jpeg" ]; then
+    mv "${base}.jpeg" "${hash}.jpeg"
+  fi
+  if [ -e "${base}.jpg" ]; then
+    mv "${base}.jpeg" "${hash}.jpg"
+  fi
+  if [ -e "${base}.png" ]; then
+    mv "${base}.png" "${hash}.png"
+  fi
+  if [ -e "${base}.xcf" ]; then
+    mv "${base}.xcf" "${hash}.xcf"
   fi
 done
