@@ -14,12 +14,12 @@ if [[ $# > 0 ]]; then
 fi
 cd $dir
 
-for fname in *.tiff; do
+for fname in *.tiff *.tif; do
   [ -e "${fname}" ] || continue;
-  if [[ -e "${hash}.tiff" ]]; then
+  if [[ -e "${fname//.tiff}.tiff" ]]; then
     base="${fname//.tiff}"
     ext="tiff"
-  elif [[ -e "${hash}.tif" ]]; then
+  elif [[ -e "${fname//.tif}.tif" ]]; then
     base="${fname//.tif}"
     ext="tif"
   else
