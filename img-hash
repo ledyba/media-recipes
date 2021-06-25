@@ -14,7 +14,7 @@ if [[ $# > 0 ]]; then
 fi
 cd $dir
 
-for fname in *.jpg *.JPG *.jpeg *.tiff *.png *.gif; do
+for fname in *.jpg *.JPG *.jpeg *.tiff *.tif *.png *.gif; do
   [ -e "${fname}" ] || continue;
   hash=$(md5sum "${fname}" | awk '{ print $1 }')
   [ -e "${hash}.${fname##*.}" ] && continue;
